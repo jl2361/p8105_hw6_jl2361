@@ -27,6 +27,7 @@ scale_fill_discrete = scale_fill_viridis_d
 # Problem 1
 For this problem, we’ll use the 2017 Central Park weather data that we’ve seen elsewhere. The code chunk below (adapted from the course website) will download these data.
 
+```{r}
 weather_df = 
   rnoaa::meteo_pull_monitors(
     c("USW00094728"),
@@ -38,6 +39,8 @@ weather_df =
     tmin = tmin / 10,
     tmax = tmax / 10) %>%
   select(name, id, everything())
+```
+
 The boostrap is helpful when you’d like to perform inference for a parameter / value / summary that doesn’t have an easy-to-write-down distribution in the usual repeated sampling framework. We’ll focus on a simple linear regression with tmax as the response and tmin as the predictor, and are interested in the distribution of two quantities estimated from these data:
 
 r̂ 2
@@ -164,7 +167,7 @@ birthweight_df =
 
 Based on a general literature review, we see that `babysex`, `blength`, `gaweeks`, and `malform` are all established baby-related factors that may affect `bwt`. In addition, maternal factors such as `mrace`, `smoken`, `ppbmi` have been associated with preterm delivery and lower `bwt `. We therefore incorporate all of these variables into a linear regression model to evaluate which factors remain significant when holding all other variables constant.
 
-A plot of model residuals against fitted values can help us assess for linearity, homoskedasticity, and outliers. We see some issues with our model. Linearly looks OK, though homoskedasticity appears to be violated. There are also several outliers. We note these issues for now.
+A plot of model residuals against fitted values can help us assess for linearity, homoskedasticity, and outliers. We see some issues with our model. Linearity looks OK, though homoskedasticity appears to be violated. There are also several outliers. We note these issues for now.
 ```{r}
 proposed_model =
   lm(bwt ~ babysex + blength + bhead + gaweeks + malform + mrace + smoken + ppbmi, data = birthweight_df)
